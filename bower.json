@@ -1,0 +1,19 @@
+{
+  "name": "openseadragon-justified-collection",
+  "homepage": "https://github.com/picturae/OpenSeadragonImageFilters",
+  "authors": [
+    "M. Nijdam <m.nijdam@picturae.nl>"
+  ],
+  "description": "Openseadragon plugin for arranging collections in a justified grid layout.",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+  }
+}
