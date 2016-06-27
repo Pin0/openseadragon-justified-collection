@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Openseadragon plugin for arranging collections in a justified grid layout.">
+    <script type="text/javascript" src="openseadragon.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/Pin0/openseadragon-justified-collection/master/dist/openseadragon-justified-collection.min.js"></script>
+    <title>Openseadragon plugin for arranging collections in a justified grid layout.</title>
+    <style>
+
+        html, body, #osd {width:100%;height:100%; margin: 0; padding: 0;}
+    </style>
+
+</head>
+
+<body>
+    <div id="osd"></div>
+     <script type="text/javascript">
+
+        var imageSources = [];
+        var chosenImage = '';
+
+        var img1 = 'http://openseadragon.github.io/example-images/highsmith/highsmith.dzi';
+        var img2 = 'http://openseadragon.github.io/example-images/duomo/duomo.dzi';
+
+        for(var i = 0; i <= 50; i++){
+            chosenImage = Math.random() < 0.5 ? img1 : img2;
+            imageSources.push(chosenImage)
+        }
+
+        var viewer = OpenSeadragon({
+            id: "osd",
+            prefixUrl: "images/",
+            crossOriginPolicy: 'Anonymous',
+            viewportMargins: {top:10, left: 10, right: 10, bottom: 10},
+            tileSources: imageSources
+        });
+
+        viewer.addHandler('open', function() {
+            viewer.world.arrange();
+            viewer.viewport.goHome(true);
+        });
+    </script>
+</body>
+</html>
