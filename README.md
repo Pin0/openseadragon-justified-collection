@@ -15,7 +15,7 @@ And call viewer.world.arange(); when you need it.
 
 You can provide some options like margin and columns.
 ```javascript
-viewer.world.arange({margin:0.05, columns:5});
+viewer.world.arange({margin:0.05, columns:5, showLastRow:true});
 ```
 
 

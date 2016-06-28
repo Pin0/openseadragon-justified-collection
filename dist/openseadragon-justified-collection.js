@@ -22,7 +22,8 @@
     $.justifiedCollection = function (options) {
         $.extend(true, this, {
             columns: options.columns || 8,
-            tileMargin: options.tileMargin || 0.1
+            tileMargin: options.tileMargin || 0.1,
+            showLastRow: options.showLastRow || true
         }, options);
 
         var ImageRow = new $.Row(this);
@@ -35,8 +36,10 @@
         }
 
         //draw remaining
-        ImageRow.draw();
-        
+        if(this.showLastRow === true){
+            ImageRow.draw();    
+        }
+       
     };
 
     $.Row = function (world){
