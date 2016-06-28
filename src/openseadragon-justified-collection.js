@@ -21,11 +21,7 @@
      */
     $.justifiedCollection = function (options) {
         $.extend(true, this, {
-            immediately: options.immediately || false,
-            layout: options.layout || $.DEFAULT_SETTINGS.collectionLayout,
-            rows: options.rows || $.DEFAULT_SETTINGS.collectionRows,
             columns: options.columns || 8,
-            tileSize: options.tileSize || $.DEFAULT_SETTINGS.collectionTileSize,
             tileMargin: options.tileMargin || 0.1
         }, options);
 

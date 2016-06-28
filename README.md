@@ -4,6 +4,8 @@
 
  <a href="https://pin0.github.io/openseadragon-justified-collection/">Demo</a>
 
+ Requires <a href="http://openseadragon.github.io/">OpenSeadragon</a>
+
  ### Usage
 Include dist/openseadragon-justified-collection.min.js after openseadragon
 
@@ -11,6 +13,13 @@ Add images to your viewer
 
 And call viewer.world.arange(); when you need it.
 
+You can provide some options like margin and columns.
+```javascript
+viewer.world.arange({margin:0.05, columns:5});
+```
+
+
+Example:
 ```javascript
     <script type="text/javascript">
 
