@@ -40,7 +40,9 @@ Example:
             prefixUrl: "images/",
             crossOriginPolicy: 'Anonymous',
             viewportMargins: {top:10, left: 10, right: 10, bottom: 10},
-            tileSources: imageSources
+            tileSources: imageSources,
+            collectionMode: true,
+            collectionColumns: 8
         });
 
         viewer.addHandler('open', function() {
@@ -50,6 +52,9 @@ Example:
     </script>
 ```
 
+### Developer notes
+
+When developing run gulp watch...
 
 
 

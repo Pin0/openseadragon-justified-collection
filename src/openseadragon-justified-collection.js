@@ -21,8 +21,9 @@
      */
     $.justifiedCollection = function (options) {
         $.extend(true, this, {
-            columns: options.columns || 8,
-            tileMargin: options.tileMargin || 0.1,
+            columns: options.columns || 0,
+            tileMargin: options.tileMargin || 80,
+            tileSize: options.tileSize || 800,
             showLastRow: options.showLastRow || true
         }, options);
 
@@ -37,15 +38,15 @@
 
         //draw remaining
         if(this.showLastRow === true){
-            ImageRow.draw();    
+            ImageRow.draw();
         }
-       
+
     };
 
     $.Row = function (world){
         $.extend(true, this, world);
 
-        this.ready = false;
+        this.ready = false; //if true row is ready for drawing
         this.images = []; //temp array of images needed for row buffering
         this.height = 1; //changed based on ratio of row based on first row
         this.resizePercentage = 1;
@@ -53,29 +54,28 @@
         this.firstRow = true; //start with first row
         this.rowWidth = 0; //hold temp rowWidth of each row.
         this.line = 0; //y position of images to position
-        this.called = 0;
 
-        //positions rows of images rescales row ti make it fit first row
+        //positions rows of images rescales row to make it fit first row
         this.draw = function() {
-
             var x = 0;
             this.images.map(function(image){
                 image.setHeight(this.height,true);
                 image.setPosition({x:x,y:this.line});
                 var tileSourceBounds = image.getBounds();
-                x = x+tileSourceBounds.width+(this.tileMargin*this.height);
+                x = x+tileSourceBounds.width+((this.tileMargin/this.tileSize)*this.height);
             }, this);
 
+            //increase x coordinate
+            this.line += this.height+(this.tileMargin/this.tileSize);
 
+            //reset values needed for row draw
             this.ready = false;
-            this.line += this.height+this.tileMargin;
             this.images = [];
-            //this.resizePercentage = 1;
             this.rowWidth = 0;
         };
 
+        //add tileSource to row
         this.addTileSource = function (tileSource) {
-            this.called++;
             if(this.isReady()){
                 throw 'Can\'t add tilesource to ready row!';
             }
@@ -88,7 +88,6 @@
             tileSource.width = tileSourceBounds.width;
 
             this.images.push(tileSource);
-
             this.rowWidth = this.rowWidth+(tileSource.width)+this.tileMargin;
 
             //first row based on number of images, based on this the other rows will match it width
@@ -100,14 +99,16 @@
                 return;
             }
 
+            //otherwise draw the row if width ot total row is met
             if(this.firstRow === false && this.rowWidth >= this.totalWidth ){
-                var resizePercentage = this.totalWidth/this.rowWidth; //1200/1300 = 0.92
-                this.height = resizePercentage;
+                //resizePercentage
+                this.height = this.totalWidth/this.rowWidth; //1200/1300 = 0.92;
                 this.ready = true;
                 this.draw();
             }
         };
 
+        //is the row ready to be drawn
         this.isReady = function() {
             return this.ready;
         };
