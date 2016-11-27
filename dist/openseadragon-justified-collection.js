@@ -49,7 +49,6 @@
         this.ready = false; //if true row is ready for drawing
         this.images = []; //temp array of images needed for row buffering
         this.height = 1; //changed based on ratio of row based on first row
-        this.resizePercentage = 1;
         this.totalWidth = 0; //after first row we know the total width
         this.firstRow = true; //start with first row
         this.rowWidth = 0; //hold temp rowWidth of each row.
@@ -67,7 +66,6 @@
 
             //increase x coordinate
             this.line += this.height+(this.tileMargin/this.tileSize);
-
             //reset values needed for row draw
             this.ready = false;
             this.images = [];
@@ -84,11 +82,8 @@
             tileSource.setHeight(1, true);
 
             var tileSourceBounds = tileSource.getBounds();
-            tileSource.ratio = Math.round((tileSourceBounds.width/tileSourceBounds.height)*100) / 100;
-            tileSource.width = tileSourceBounds.width;
-
             this.images.push(tileSource);
-            this.rowWidth = this.rowWidth+(tileSource.width)+this.tileMargin;
+            this.rowWidth = this.rowWidth+(tileSourceBounds.width)+(this.tileMargin/this.tileSize);
 
             //first row based on number of images, based on this the other rows will match it width
             if(this.firstRow === true && this.images.length === this.columns) {
@@ -102,11 +97,11 @@
             //otherwise draw the row if width ot total row is met
             if(this.firstRow === false && this.rowWidth >= this.totalWidth ){
                 //resizePercentage
-                this.height = this.totalWidth/this.rowWidth; //1200/1300 = 0.92;
+                this.height = parseFloat(this.totalWidth/this.rowWidth); //1200/1300 = 0.92;
                 this.ready = true;
                 this.draw();
             }
-        };
+         };
 
         //is the row ready to be drawn
         this.isReady = function() {
